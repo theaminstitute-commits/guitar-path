@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher foreground: three strings and a green + blue glowing path through three note dots (the app's motif). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:strokeColor="#2B3650" android:strokeWidth="1.5" android:pathData="M24,38 L84,38 M24,54 L84,54 M24,70 L84,70" />
+    <path android:strokeColor="#1B2336" android:strokeWidth="2" android:pathData="M44,30 L44,78 M64,30 L64,78" />
+    <path android:strokeColor="#3DFF9A" android:strokeWidth="4" android:strokeLineCap="round" android:pathData="M34,70 L54,54" />
+    <path android:strokeColor="#3FD8FF" android:strokeWidth="4" android:strokeLineCap="round" android:pathData="M54,54 L74,38" />
+    <path android:fillColor="#0D2C40" android:strokeColor="#3FD8FF" android:strokeWidth="2.5" android:pathData="M34,70 m-6,0 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" />
+    <path android:fillColor="#0B2A1C" android:strokeColor="#3DFF9A" android:strokeWidth="2.5" android:pathData="M54,54 m-6,0 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" />
+    <path android:fillColor="#0A1322" android:strokeColor="#3FD8FF" android:strokeWidth="2.5" android:pathData="M74,38 m-6,0 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0" />
+</vector>
