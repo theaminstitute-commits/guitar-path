@@ -6,7 +6,7 @@ Learn the guitar fretboard one triad at a time. A triad and a glowing start note
 
 Standard tuning, frets 0–12, landscape, dark. Three levels:
 
-- **Beginner** – major triads on C D E F G A B, root position, moving right or left. Each round opens with a short intro that highlights the 1st, 3rd and 5th of the major scale.
+- **Beginner** – major triads on C D E F G A B, root position, moving right or left. The first Beginner game opens a five-step lesson (12 notes, whole and half steps on the fretboard, picking the C major scale, the triad, D major); each round then opens with a short intro that highlights the 1st, 3rd and 5th of the major scale.
 - **Expert** – all 15 major and 15 minor keys, with inversions and vertical paths.
 - **Master** – diminished and augmented triads in all 12 keys, with inversions.
 
@@ -37,7 +37,7 @@ node tools/build.js
 Then commit `index.html` so the web link updates. For a test APK (Windows, Android Studio + SDK build-tools 36 installed):
 
 ```powershell
-.\android\build-apk.ps1 -Version 0.7 -Code 7
+.\android\build-apk.ps1 -Version 0.8 -Code 8
 ```
 
 Outputs land in `dist/` (not committed).

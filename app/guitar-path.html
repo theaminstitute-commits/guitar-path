@@ -126,6 +126,51 @@ button{font:inherit;color:inherit}
 .intro-sub.show{opacity:1}
 .intro-sub b{color:var(--blue);letter-spacing:.06em}
 .intro-skip{font-size:13px;color:var(--muted)}
+/* Beginner lesson: what a triad is, in four short steps (first Beginner game, or from the menu link) */
+.lesson{position:fixed;inset:0;z-index:6;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto auto;gap:clamp(8px,2.2vh,18px);
+  padding-block:clamp(10px,3vh,28px);padding-inline:16px;overflow:auto;background:var(--ground);
+  background-image:radial-gradient(900px 420px at 50% 45%,#0D1829 0%,transparent 70%);animation:fadeIn .25s ease-out both}
+.lesson>*{width:min(1000px,100%);margin-inline:auto}
+.lesson-top{display:flex;justify-content:space-between;align-items:center}
+.lesson-title{margin:0;text-align:center;font:700 clamp(24px,4.4vw,44px)/1.05 var(--display);text-wrap:balance}
+.lesson-visual{display:flex;align-items:center;justify-content:center;min-height:clamp(100px,26vh,180px);cursor:pointer}
+.lesson-text{margin:0 auto;max-width:62ch;text-align:center;font-size:clamp(15px,2vw,19px);line-height:1.45;color:var(--soft);text-wrap:pretty}
+.lesson-text b{color:var(--text)}
+.lesson-text b.g{color:var(--gold)}
+.lesson-text .n{white-space:nowrap}
+.lesson-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lesson-nav .btn{min-width:110px}
+.dots{display:flex;gap:8px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--blue);box-shadow:0 0 8px rgba(63,216,255,.6)}
+.linkbtn{appearance:none;border:0;background:none;padding:6px 0 0;color:var(--blue);font:600 14px/1.3 var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+/* chromatic row: naturals as big circles, sharps/flats as small ones between them */
+.chroma{--nat:clamp(34px,5.6vw,58px);--acc:clamp(26px,4.2vw,44px);display:flex;align-items:flex-start;gap:clamp(3px,.8vw,8px);padding-bottom:22px}
+.cc{display:grid;justify-items:center;gap:7px}
+.cc .dot{width:var(--nat);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--panel);
+  color:var(--text);font:700 clamp(14px,2.2vw,22px)/1 var(--display);transition:transform .35s cubic-bezier(.3,1.6,.5,1),border-color .3s,background .3s,color .3s,box-shadow .3s,opacity .35s}
+.cc.acc .dot{width:var(--acc);margin-top:calc((var(--nat) - var(--acc)) / 2);font-size:clamp(8px,1.15vw,12px);line-height:1.15;color:var(--muted);text-align:center}
+.cc.acc.pick .dot{width:var(--nat);margin-top:0;font-size:clamp(14px,2.2vw,22px)}
+.cc .step{min-height:1em;font:600 clamp(9px,1.2vw,12px)/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cc.pick .dot{border-color:var(--blue);background:#0D2C40;color:var(--text);box-shadow:0 0 16px rgba(63,216,255,.5)}
+.cc.pick .step{color:var(--blue)}
+.cc.gold .dot{border-color:var(--gold);background:#2A2210;color:var(--gold);box-shadow:0 0 16px rgba(255,198,90,.5)}
+.cc.gold .step{color:var(--gold)}
+.cc.pair .dot{border-color:#7A6430}
+.chroma.done .cc:not(.pick) .dot{opacity:.28}
+.cc.triad .dot{transform:scale(1.2)}
+.stepboard{width:min(100%,660px);height:auto;max-height:42vh}
+.stepboard .node circle{filter:none}
+.stepboard .sname.hot{filter:none;fill:var(--blue)}
+.stepboard .link{filter:url(#lglow)}
+.stepboard .steplabel{font:600 15px var(--display);letter-spacing:.06em;fill:var(--blue);text-anchor:middle}
+.stepboard .steplabel.half{fill:var(--gold)}
+.stepboard .link.half{stroke:var(--gold)}
+.gapmark{position:relative;width:3px;height:var(--nat);border-radius:2px;background:var(--gold);box-shadow:0 0 8px rgba(255,198,90,.6)}
+.gapmark span{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);white-space:nowrap;font:600 clamp(9px,1.1vw,11px)/1 var(--display);color:var(--gold)}
+/* short phone screens held sideways: smaller title and gaps so the picture keeps its size */
+@media (max-height:480px){.lesson{gap:6px;padding-block:8px}.lesson-title{font-size:clamp(20px,7vh,30px)}.lesson-text{font-size:14px;line-height:1.35}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeOut{to{opacity:0}}
 .pop{position:absolute;left:50%;top:6%;font:700 28px var(--display);color:var(--green);text-shadow:0 0 16px rgba(61,255,154,.6);pointer-events:none;animation:rise 1.5s ease-out forwards}
@@ -270,6 +315,7 @@ button{font:inherit;color:inherit}
           <span>Diminished and augmented triads in all 12 keys, with inversions. Moving right or left.</span>
         </button>
       </div>
+      <button class="linkbtn" id="lessonLink">New here? What's a triad?</button>
     </div>
     <div class="opts">
       <div class="opt" id="opt-inv">
@@ -290,7 +336,7 @@ button{font:inherit;color:inherit}
       </div>
     </div>
     <button class="btn primary" id="play">Play 10 rounds</button>
-    <p class="proto">Prototype v0.7 for feedback. Standard tuning E A D G B E, frets 0–12.</p>
+    <p class="proto">Prototype v0.8 for feedback. Standard tuning E A D G B E, frets 0–12.</p>
   </section>
 </main>
 
@@ -328,6 +374,19 @@ button{font:inherit;color:inherit}
     </div>
   </footer>
 </main>
+
+<!-- ================= BEGINNER LESSON ================= -->
+<div class="lesson" id="lesson" hidden role="dialog" aria-labelledby="lessonTitle">
+  <div class="lesson-top"><div class="label" id="lessonStep">Step 1 of 4</div><button class="btn quiet" id="lessonSkip">Skip</button></div>
+  <h2 class="lesson-title" id="lessonTitle">12 notes</h2>
+  <div class="lesson-visual" id="lessonVisual" aria-hidden="true"></div>
+  <p class="lesson-text" id="lessonText"></p>
+  <div class="lesson-nav">
+    <button class="btn" id="lessonBack">Back</button>
+    <div class="dots" id="lessonDots"></div>
+    <button class="btn primary" id="lessonNext">Next</button>
+  </div>
+</div>
 
 <!-- ================= BEGINNER INTRO ================= -->
 <div class="intro" id="intro" hidden role="dialog" aria-labelledby="introTitle">
@@ -619,6 +678,145 @@ button{font:inherit;color:inherit}
     el.onclick = null; el.classList.add('out');
     setTimeout(() => { el.hidden = true; el.classList.remove('out'); }, 300);
   }
+
+  // ---------- Beginner lesson: what a triad is ----------
+  // Shown before the first Beginner game on this device (remembered), and any time from the menu link.
+  // C major is picked out of the 12 chromatic notes, the 1st/3rd/5th make the triad, and D major shows
+  // the same step pattern landing on a sharp that is part of the triad (D F♯ A).
+  const MAJOR_STEPS = [0, 2, 4, 5, 7, 9, 11, 12]; // semitones above the root, octave included
+  const majorScale = root => { const r = parse(root); return MAJOR_STEPS.map((st, k) => spell(r.l + k, (r.pc + st) % 12)); };
+  const LESSON = [
+    { title: '12 notes',
+      text: 'Music uses 12 notes. Between most neighbouring notes there is a sharp (♯) or flat (♭) note. <b class="g">E–F</b> and <b class="g">B–C</b> are different: nothing in between. On a guitar string, every fret is the next of these 12 notes.',
+      draw: v => chroma(v, 'C', { marks: true }) },
+    { title: 'Whole and half steps',
+      text: 'On the guitar a <b>half step</b> is one fret and a <b>whole step</b> is two frets. On the A string, C to D and D to E are whole steps, but E to F is only a <b class="g">half step</b>: there is no note between them.',
+      draw: v => fretSteps(v) },
+    { title: 'Picking the C major scale',
+      text: 'A major scale picks 7 of the 12 notes with the steps <b>whole, whole, half, whole, whole, whole, half</b>. A whole step skips one note, a half step goes to the very next one. Starting on C, every pick is a plain note.',
+      draw: v => chroma(v, 'C', { pick: true }) },
+    { title: 'A triad',
+      text: 'Take the <b>1st, 3rd and 5th</b> notes of the scale and you have a triad. The C major triad is <b class="n">C E G</b>.',
+      draw: v => degrees(v, 'C') },
+    { title: 'One more: D major',
+      text: 'Same steps, starting on D. A whole step up from E skips F and lands on <b class="g">F♯</b>, so this scale has sharps (F♯ and C♯). The 1st, 3rd and 5th give the D major triad: <b class="n">D F♯ A</b>.',
+      draw: v => chroma(v, 'D', { pick: true, triad: true }) },
+  ];
+  let lessonStep = 0, lessonDone = null, lessonTimers = [];
+  const lessonSeen = () => { try { return localStorage.getItem('guitarpath.lessonSeen') === '1'; } catch (e) { return false; } };
+  // Slow enough to follow: a pause before the first pick, then about one note a second.
+  const LESSON_START = 900, LESSON_PICK = 1000;
+  const lessonAt = (ms, fn) => lessonTimers.push(setTimeout(fn, reduced ? 0 : ms));
+
+  // The 13 notes from the root up to its octave; picked notes light up one by one with their step size.
+  function chroma(v, root, o) {
+    const r = parse(root), names = majorScale(root);
+    const row = document.createElement('div'); row.className = 'chroma'; v.appendChild(row);
+    const cells = [];
+    for (let i = 0; i <= 12; i++) {
+      const pc = (r.pc + i) % 12, nat = NAT.includes(pc), k = MAJOR_STEPS.indexOf(i);
+      if (o.marks && i > 0 && nat && NAT.includes((pc + 11) % 12)) {
+        const m = document.createElement('div'); m.className = 'gapmark'; m.innerHTML = '<span>no ♯/♭</span>'; row.appendChild(m);
+      }
+      const c = document.createElement('div');
+      c.className = 'cc' + (nat ? '' : ' acc') + (o.marks && nat && (NAT.includes((pc + 1) % 12) || NAT.includes((pc + 11) % 12)) ? ' pair' : '');
+      const accName = `${LET[NAT.indexOf((pc + 11) % 12)]}♯<br>${LET[NAT.indexOf((pc + 1) % 12)]}♭`;
+      c.innerHTML = `<div class="dot">${nat ? LET[NAT.indexOf(pc)] : accName}</div><div class="step"></div>`;
+      row.appendChild(c); cells.push({ c, k, nat, name: k >= 0 ? fmt(names[k]) : '' });
+    }
+    if (!o.pick) return;
+    const picks = cells.filter(x => x.k >= 0), base = 60 + r.pc - (r.pc > 5 ? 12 : 0);
+    picks.forEach((x, j) => lessonAt(LESSON_START + j * LESSON_PICK, () => {
+      x.c.classList.add('pick'); if (!x.nat) { x.c.classList.add('gold'); x.c.querySelector('.dot').textContent = x.name; }
+      x.c.querySelector('.step').textContent = j === 0 ? 'start' : (MAJOR_STEPS[j] - MAJOR_STEPS[j - 1] === 2 ? 'whole' : 'half');
+      pluck(base + MAJOR_STEPS[j], 0, 0.9, 0.12);
+    }));
+    lessonAt(LESSON_START + picks.length * LESSON_PICK, () => {
+      row.classList.add('done');
+      if (o.triad) [0, 2, 4].forEach(k => picks[k].c.classList.add('triad'));
+    });
+  }
+
+  // A short piece of the neck (frets 2-9, mirrored for left-handed players) walking up the A string:
+  // C-D and D-E are whole steps (2 frets), E-F is a half step (1 fret).
+  function fretSteps(v) {
+    const left = prefs.hand === 'left', CW = 72, X = 34, T = 18, S = 20, FIRST = 2, N = 8;
+    const Wm = X + N * CW + 10, Hm = T + 5 * S + 66;
+    const sx = x => left ? Wm - x : x, fx = f => sx(X + (f - FIRST + 0.5) * CW), sy = st => T + st * S;
+    const svg = mk('svg', { viewBox: `0 0 ${Wm} ${Hm}`, class: 'stepboard' }); v.appendChild(svg);
+    // Own gradient and glow: the game board's defs sit in a hidden element, which browsers won't paint from.
+    const defs = mk('defs', {}, svg), g = mk('linearGradient', { id: 'lwood', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    [['0', '#2C1F19'], ['.5', '#1C1310'], ['1', '#281B15']].forEach(([o, c]) => mk('stop', { offset: o, 'stop-color': c }, g));
+    const fl = mk('filter', { id: 'lglow', filterUnits: 'userSpaceOnUse', x: 0, y: 0, width: Wm, height: Hm }, defs);
+    mk('feGaussianBlur', { stdDeviation: 3, result: 'b' }, fl);
+    const fm = mk('feMerge', {}, fl); ['b', 'b', 'SourceGraphic'].forEach(i => mk('feMergeNode', { in: i }, fm));
+    const top = T - 9, bot = T + 5 * S + 9, w = N * CW;
+    mk('rect', { x: left ? Wm - X - w : X, y: top, width: w, height: bot - top, rx: 3, fill: 'url(#lwood)' }, svg);
+    [3, 5, 7, 9].forEach(f => mk('circle', { cx: fx(f), cy: T + 2.5 * S, r: 6, fill: '#D9D0BF', opacity: 0.16 }, svg));
+    for (let k = 0; k <= N; k++) mk('rect', { x: sx(X + k * CW) - 1.5, y: top, width: 3, height: bot - top, fill: '#8A93A3', opacity: 0.75 }, svg);
+    for (let st = 0; st < 6; st++) {
+      mk('line', { x1: sx(X), y1: sy(st), x2: sx(X + w), y2: sy(st), stroke: st >= 3 ? '#B39C79' : '#C8D0DB', 'stroke-width': 1 + st * 0.4, opacity: st === 4 ? 1 : 0.55 }, svg);
+      mk('text', { x: sx(16), y: sy(st), class: 'sname' + (st === 4 ? ' hot' : '') }, svg).textContent = SNAME[st];
+    }
+    for (let f = FIRST; f < FIRST + N; f++) mk('text', { x: fx(f), y: bot + 20, class: 'fretnum mark' }, svg).textContent = f;
+    // C (fret 3), D (5), E (7), F (8) on the A string (open A = MIDI 45).
+    const notes = [['C', 3], ['D', 5], ['E', 7], ['F', 8]], links = mk('g', {}, svg), dots = mk('g', {}, svg);
+    const dot = (name, f) => { const n = mk('g', { class: 'node ok', transform: `translate(${fx(f)} ${sy(4)})` }, dots); const i = mk('g', { class: 'in' }, n); mk('circle', { r: 12 }, i); mk('text', {}, i).textContent = name; };
+    lessonAt(LESSON_START, () => { dot('C', 3); pluck(48, 0, 1.1, 0.14); });
+    notes.slice(1).forEach(([name, f], j) => lessonAt(LESSON_START + (j + 1) * LESSON_PICK * 1.4, () => {
+      const pf = notes[j][1], half = f - pf === 1;
+      mk('line', { x1: fx(pf), y1: sy(4), x2: fx(f), y2: sy(4), class: 'link' + (half ? ' half' : '') }, links);
+      dot(name, f); pluck(45 + f, 0, 1.1, 0.14);
+      mk('text', { x: (fx(pf) + fx(f)) / 2, y: bot + 44, class: 'steplabel' + (half ? ' half' : '') }, svg).textContent = half ? 'half · 1 fret' : 'whole · 2 frets';
+    }));
+  }
+
+  // The 7 scale notes with the 1st, 3rd and 5th enlarged in turn (same look as the round intro).
+  function degrees(v, root) {
+    const names = majorScale(root).slice(0, 7), r = parse(root), base = 60 + r.pc - (r.pc > 5 ? 12 : 0);
+    const row = document.createElement('div'); row.className = 'intro-scale'; v.appendChild(row);
+    const cols = names.map((n, i) => {
+      const c = document.createElement('div'); c.className = 'intro-col';
+      c.innerHTML = `<div class="intro-note">${fmt(n)}</div><div class="intro-deg">${i + 1}</div>`;
+      row.appendChild(c); return c;
+    });
+    [0, 2, 4].forEach((d, j) => lessonAt(LESSON_START + j * LESSON_PICK * 1.1, () => { cols[d].classList.add('on'); pluck(base + MAJOR_STEPS[d], 0, 1.1, 0.14); }));
+    lessonAt(LESSON_START + 3 * LESSON_PICK * 1.1, () => row.classList.add('done'));
+  }
+
+  function renderLesson() {
+    lessonTimers.forEach(clearTimeout); lessonTimers = [];
+    const st = LESSON[lessonStep], last = lessonStep === LESSON.length - 1;
+    $('lessonStep').textContent = `Step ${lessonStep + 1} of ${LESSON.length}`;
+    $('lessonTitle').textContent = st.title;
+    $('lessonText').innerHTML = st.text;
+    $('lessonDots').innerHTML = LESSON.map((_, i) => `<i class="${i === lessonStep ? 'on' : ''}"></i>`).join('');
+    const v = $('lessonVisual'); v.textContent = ''; st.draw(v);
+    $('lessonBack').style.visibility = lessonStep ? 'visible' : 'hidden';
+    $('lessonNext').textContent = last ? (lessonDone ? 'Start playing' : 'Done') : 'Next';
+  }
+  function showLesson(done) {
+    lessonDone = done; lessonStep = 0;
+    $('lesson').hidden = false; renderLesson();
+    $('lessonNext').focus({ preventScroll: true });
+  }
+  function closeLesson() {
+    lessonTimers.forEach(clearTimeout); lessonTimers = [];
+    try { localStorage.setItem('guitarpath.lessonSeen', '1'); } catch (e) {}
+    $('lesson').hidden = true;
+    const done = lessonDone; lessonDone = null; if (done) done();
+  }
+  $('lessonNext').addEventListener('click', () => { if (lessonStep < LESSON.length - 1) { lessonStep++; renderLesson(); } else closeLesson(); });
+  $('lessonBack').addEventListener('click', () => { if (lessonStep > 0) { lessonStep--; renderLesson(); } });
+  $('lessonSkip').addEventListener('click', closeLesson);
+  $('lessonVisual').addEventListener('click', renderLesson);
+  $('lessonLink').addEventListener('click', () => { audio(); showLesson(null); });
+  document.addEventListener('keydown', e => {
+    if ($('lesson').hidden) return;
+    if (e.key === 'ArrowRight') $('lessonNext').click();
+    if (e.key === 'ArrowLeft') $('lessonBack').click();
+    if (e.key === 'Escape') closeLesson();
+  });
 
   function renderHud() {
     $('kicker').textContent = `Round ${G.round} of ${ROUNDS} · ${LEVEL_NAME[G.level]}`;
@@ -952,7 +1150,10 @@ button{font:inherit;color:inherit}
     } catch (e) {}
   }
 
-  $('play').addEventListener('click', () => { audio(); startGame(); });
+  $('play').addEventListener('click', () => {
+    audio();
+    if (prefs.level === 'beginner' && !lessonSeen()) showLesson(startGame); else startGame();
+  });
   $('againBtn').addEventListener('click', startGame);
   $('menuBtn').addEventListener('click', toMenu);
   $('nextBtn').addEventListener('click', nextRound);
