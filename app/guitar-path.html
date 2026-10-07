@@ -134,6 +134,8 @@ button{font:inherit;color:inherit}
 .lesson-top{display:flex;justify-content:space-between;align-items:center}
 .lesson-title{margin:0;text-align:center;font:700 clamp(24px,4.4vw,44px)/1.05 var(--display);text-wrap:balance}
 .lesson-visual{display:flex;align-items:center;justify-content:center;min-height:clamp(100px,26vh,180px);cursor:pointer}
+.lesson-text p{margin:0}
+.lesson-text p+p{margin-top:.7em}
 .lesson-text{margin:0 auto;max-width:62ch;text-align:center;font-size:clamp(15px,2vw,19px);line-height:1.45;color:var(--soft);text-wrap:pretty}
 .lesson-text b{color:var(--text)}
 .lesson-text b.g{color:var(--gold)}
@@ -336,7 +338,7 @@ button{font:inherit;color:inherit}
       </div>
     </div>
     <button class="btn primary" id="play">Play 10 rounds</button>
-    <p class="proto">Prototype v0.8 for feedback. Standard tuning E A D G B E, frets 0–12.</p>
+    <p class="proto">Prototype v0.9 for feedback. Standard tuning E A D G B E, frets 0–12.</p>
   </section>
 </main>
 
@@ -380,7 +382,7 @@ button{font:inherit;color:inherit}
   <div class="lesson-top"><div class="label" id="lessonStep">Step 1 of 4</div><button class="btn quiet" id="lessonSkip">Skip</button></div>
   <h2 class="lesson-title" id="lessonTitle">12 notes</h2>
   <div class="lesson-visual" id="lessonVisual" aria-hidden="true"></div>
-  <p class="lesson-text" id="lessonText"></p>
+  <div class="lesson-text" id="lessonText"></div>
   <div class="lesson-nav">
     <button class="btn" id="lessonBack">Back</button>
     <div class="dots" id="lessonDots"></div>
@@ -648,7 +650,7 @@ button{font:inherit;color:inherit}
     if (G.level === 'beginner') showIntro();
   }
 
-  // Beginner intro (under 3 s, tap to skip): the root's major scale, then the 1st, 3rd and 5th are
+  // Beginner intro (about 6 s, tap to skip): the root's major scale, then the 1st, 3rd and 5th are
   // enlarged one by one (with their sound) to show where the triad comes from.
   let introTimers = [];
   function showIntro() {
@@ -667,9 +669,10 @@ button{font:inherit;color:inherit}
     el.classList.remove('out'); el.hidden = false;
     const base = 60 + root.pc - (root.pc > 5 ? 12 : 0), semis = [0, 4, 7];
     const at = (ms, fn) => introTimers.push(setTimeout(fn, reduced ? 0 : ms));
-    [0, 2, 4].forEach((deg, k) => at(450 + k * 350, () => { cols[deg].classList.add('on'); pluck(base + semis[k], 0, 1.2, 0.16); }));
-    at(1550, () => { scaleEl.classList.add('done'); $('introSub').classList.add('show'); });
-    introTimers.push(setTimeout(hideIntro, 2600));
+    // Same pace as the lesson: about one note a second, then the spelled triad holds for a few seconds.
+    [0, 2, 4].forEach((deg, k) => at(900 + k * 1000, () => { cols[deg].classList.add('on'); pluck(base + semis[k], 0, 1.2, 0.16); }));
+    at(3600, () => { scaleEl.classList.add('done'); $('introSub').classList.add('show'); });
+    introTimers.push(setTimeout(hideIntro, 6200));
     el.onclick = hideIntro;
   }
   function hideIntro() {
@@ -687,7 +690,7 @@ button{font:inherit;color:inherit}
   const majorScale = root => { const r = parse(root); return MAJOR_STEPS.map((st, k) => spell(r.l + k, (r.pc + st) % 12)); };
   const LESSON = [
     { title: '12 notes',
-      text: 'Music uses 12 notes. Between most neighbouring notes there is a sharp (♯) or flat (♭) note. <b class="g">E–F</b> and <b class="g">B–C</b> are different: nothing in between. On a guitar string, every fret is the next of these 12 notes.',
+      text: '<p>Music uses 12 notes. Most neighboring notes have a sharp (♯) or flat (♭) between them, but <b class="g">E–F</b> and <b class="g">B–C</b> sit directly next to each other with nothing in between. On a guitar, each fret moves you up to the next of these 12 notes.</p><p>Every sharp or flat note has two names. The note between C and D is C♯ when you think of it as C raised a little, and D♭ when you think of it as D lowered a little. It\'s the same note, played on the same fret. Notes that share a pitch but have different names are called <b>enharmonic notes</b>.</p>',
       draw: v => chroma(v, 'C', { marks: true }) },
     { title: 'Whole and half steps',
       text: 'On the guitar a <b>half step</b> is one fret and a <b>whole step</b> is two frets. On the A string, C to D and D to E are whole steps, but E to F is only a <b class="g">half step</b>: there is no note between them.',

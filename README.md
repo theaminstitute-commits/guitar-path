@@ -37,7 +37,7 @@ node tools/build.js
 Then commit `index.html` so the web link updates. For a test APK (Windows, Android Studio + SDK build-tools 36 installed):
 
 ```powershell
-.\android\build-apk.ps1 -Version 0.8 -Code 8
+.\android\build-apk.ps1 -Version 0.9 -Code 9
 ```
 
 Outputs land in `dist/` (not committed).
