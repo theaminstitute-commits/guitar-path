@@ -41,3 +41,7 @@ Then commit `index.html` so the web link updates. For a test APK (Windows, Andro
 ```
 
 Outputs land in `dist/` (not committed).
+
+## License
+
+© 2026 Philip van der Walt. Free for **non-commercial** use under the [Creative Commons Attribution-NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/) licence (see `LICENSE`): you may share and adapt it with credit, but not sell it or use it commercially. For commercial use, ask first.
